@@ -90,15 +90,16 @@ const getFiberNodeComponentHierarchy = currNode => {
   // Skip components we don't care about.
   // :TODO: (jmtaber129): Skip components with names/display names like 'View' and '_class'.
   if (
-    currNode.elementType === 'RCTView' ||
-    currNode.elementType === null ||
-    !(currNode.elementType.displayName || currNode.elementType.name)
+    currNode.type === 'RCTView' ||
+    currNode.type === null ||
+    !(currNode.type.displayName || currNode.type.name)
   ) {
     return getFiberNodeComponentHierarchy(currNode.return);
   }
 
   const elementName =
-    currNode.elementType.displayName || currNode.elementType.name;
+    currNode.type.displayName || currNode.type.name;
+
   const propsString = extractProps(
     elementName,
     currNode.stateNode,
